@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Menu } from "./Components";
-
+import { Menu, BookList } from "./Components";
+import books from "./SimulatedData";
 class App extends Component {
   constructor(props) {
     super(props);
@@ -17,8 +17,15 @@ class App extends Component {
   }
 
   render() {
+    const { isLoggedIn } = this.state;
     return (
-      <Menu isLoggedIn={this.state.isLoggedIn} changeLoginFunc={this.logInOrOut} />
+      <div>
+        <Menu isLoggedIn={isLoggedIn} changeLoginFunc={this.logInOrOut} />
+        <br />
+        <h1 className="ui header center aligned">Second Treasures Bookstore</h1>
+        <br />
+        <BookList isLoggedIn={isLoggedIn} data={books} />
+      </div>
     );
   }
 }

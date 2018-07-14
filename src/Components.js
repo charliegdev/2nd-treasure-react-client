@@ -14,4 +14,27 @@ const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
   );
 }
 
-export { Menu };
+const BookList = ({ isLoggedIn, data }) => {
+  return (
+    <div className="ui container">
+      <h2 className="ui header left aligned"> All Books</h2>
+      <table className="ui celled padded table violet">
+        <thead>
+          <tr>
+            <th className="single line four wide">Title</th>
+            <th className="three wide">Author</th>
+            <th className="three wide">Genre</th>
+            <th className="two wide">Price</th>
+            <th className={isLoggedIn ? 'two wide' : 'four wide'}>ISBN</th>
+            <th className="one wide">Update</th>
+            <th className="one wide">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+    </div>
+  )
+}
+
+export { Menu, BookList };
