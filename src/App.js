@@ -22,7 +22,7 @@ class App extends Component {
       <div>
         <Menu isLoggedIn={isLoggedIn} changeLoginFunc={this.logInOrOut} />
         <br />
-        <h1 className="ui header center aligned">Second Treasures Bookstore</h1>
+        <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
         <BookList isLoggedIn={isLoggedIn} data={books} />
       </div>
