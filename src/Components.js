@@ -1,13 +1,13 @@
 import React from 'react';
 
-const Menu = ({ showLogin = true}) => {
+const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
   return (
     <div className="ui inverted segment">
       <div className="ui inverted secondary fluid menu">
-      { showLogin ? 
-        <a className="active item right blue"> Employee Login </a>
-        :      
-        <a className="active item right orange"> Logout </a>
+      { isLoggedIn ? 
+        <a className="active item right orange" onClick={changeLoginFunc}> Logout </a>
+        : 
+        <a className="active item right blue" onClick={changeLoginFunc}> Employee Login </a>
       }
       </div>
     </div>
