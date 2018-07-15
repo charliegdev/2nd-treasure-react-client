@@ -20,9 +20,8 @@ Menu.propTypes = {
   changeLoginFunc: PropTypes.func.isRequired
 };
 
-const BookItem = props => {
-  const { isLoggedIn } = props;
-  const { title, author, genre, price, isbn } = props.bookInfo;
+const BookItem = ({ isLoggedIn, deleteFunc, bookInfo }) => {
+  const { title, author, genre, price, isbn, uuid } = bookInfo;
   return (
     <tr className="repeated-item">
       <td>{title}</td>
@@ -30,20 +29,19 @@ const BookItem = props => {
       <td>{genre}</td>
       <td>{price}</td>
       <td>{isbn}</td>
-      {isLoggedIn && 
-        <td><button className="yellow ui button">Update</button></td>
-      }
-      {isLoggedIn && <td><button className="negative ui button">Delete</button></td>}
+      {isLoggedIn && <td><button className="yellow ui button">Update</button></td>}
+      {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}
     </tr>
   );
 };
 
 BookItem.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  bookInfo: PropTypes.object.isRequired
+  bookInfo: PropTypes.object.isRequired,
+  deleteFunc: PropTypes.func
 };
 
-const BookList = ({ isLoggedIn, listOfBooks }) => {
+const BookList = ({ isLoggedIn, listOfBooks, deleteFunc }) => {
   return (
     <div className="ui container">
       <h2 className="ui header left aligned"> All Books</h2>
@@ -59,7 +57,7 @@ const BookList = ({ isLoggedIn, listOfBooks }) => {
             {isLoggedIn && <th className="one wide">Delete</th>}
           </tr>
         </thead>
-        <tbody>{listOfBooks.map(book => <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} />)}</tbody>
+        <tbody>{listOfBooks.map(book => <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc}/>)}</tbody>
       </table>
     </div>
   );
@@ -67,7 +65,8 @@ const BookList = ({ isLoggedIn, listOfBooks }) => {
 
 BookList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  listOfBooks: PropTypes.array.isRequired
+  listOfBooks: PropTypes.array.isRequired,
+  deleteFunc: PropTypes.func
 };
 
 export { Menu, BookList };

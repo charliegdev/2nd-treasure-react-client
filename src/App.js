@@ -6,25 +6,32 @@ class App extends Component {
     super(props);
 
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      books
     };
 
     this.logInOrOut = this.logInOrOut.bind(this);
+    this.deleteBook = this.deleteBook.bind(this);
   }
 
   logInOrOut() {
     this.setState(prevState => ({ isLoggedIn: !prevState.isLoggedIn }));
   }
 
+  deleteBook(uuid) {
+    const newBook = this.state.books.filter(book => book.uuid !== uuid);
+    this.setState({ books: newBook });
+  }
+
   render() {
-    const { isLoggedIn } = this.state;
+    const { isLoggedIn, books } = this.state;
     return (
       <div>
         <Menu isLoggedIn={isLoggedIn} changeLoginFunc={this.logInOrOut} />
         <br />
         <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
-        <BookList isLoggedIn={isLoggedIn} listOfBooks={books} />
+        <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} />
       </div>
     );
   }
