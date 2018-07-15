@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const BookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
+const ViewBookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
   const { title, author, genre, price, isbn, uuid } = bookInfo;
   return (
     <tr className="repeated-item">
@@ -16,7 +16,7 @@ const BookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
   );
 };
 
-BookItem.propTypes = {
+ViewBookItem.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   bookInfo: PropTypes.object.isRequired,
   deleteFunc: PropTypes.func,
@@ -40,7 +40,7 @@ const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc })
           </tr>
         </thead>
         <tbody>{listOfBooks.map(book => 
-          <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} flipEditModeFunc={flipEditModeFunc} />)
+          <ViewBookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} flipEditModeFunc={flipEditModeFunc} />)
         }
         </tbody>
       </table>

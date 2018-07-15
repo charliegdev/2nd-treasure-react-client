@@ -1,14 +1,14 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
+const Menu = ({ isLoggedIn, loginFunc, logoutFunc }) => {
   return (
     <div className="ui inverted segment">
       <div className="ui inverted secondary fluid menu">
         {isLoggedIn ? 
-          <a className="active item right orange" onClick={changeLoginFunc}>Logout</a>
+          <a className="active item right orange" onClick={logoutFunc}>Logout</a>
           : 
-          <a className="active item right blue" onClick={changeLoginFunc}>Employee Login</a>
+          <a className="active item right blue" onClick={loginFunc}>Employee Login</a>
         }
       </div>
     </div>
@@ -16,8 +16,9 @@ const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
 };
 
 Menu.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  changeLoginFunc: PropTypes.func.isRequired
+  isLoggedIn: PropTypes.bool.isRequired,
+  loginFunc: PropTypes.func.isRequired,
+  logoutFunc: PropTypes.func.isRequired
 };
 
 export default Menu;

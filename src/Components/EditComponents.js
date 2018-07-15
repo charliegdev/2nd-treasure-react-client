@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const BookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
+const EditBookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, onChangeFunc, bookInfo }) => {
   const { title, author, genre, price, isbn, uuid } = bookInfo;
   return (
     <tr className="repeated-item">
-      <td>{title}</td>
+      <td><div className="ui input mini"><input type="text" value={title} onChange={onChangeFunc} /></div></td>
       <td className="single line">{author}</td>
       <td>{genre}</td>
       <td>{price}</td>
@@ -16,14 +16,15 @@ const BookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
   );
 };
 
-BookItem.propTypes = {
+EditBookItem.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   bookInfo: PropTypes.object.isRequired,
   deleteFunc: PropTypes.func,
-  flipEditModeFunc: PropTypes.func
+  flipEditModeFunc: PropTypes.func,
+  onChangeFunc: PropTypes.func
 };
 
-const EditBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc }) => {
+const EditBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc, onChangeFunc }) => {
   return (
     <div className="ui container">
       <h2 className="ui header left aligned"> Edit Books</h2>
@@ -40,7 +41,14 @@ const EditBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc })
           </tr>
         </thead>
         <tbody>{listOfBooks.map(book => 
-          <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} flipEditModeFunc={flipEditModeFunc} />)
+          <EditBookItem 
+            bookInfo={book} 
+            key={book.uuid} 
+            isLoggedIn={isLoggedIn} 
+            deleteFunc={deleteFunc} 
+            flipEditModeFunc={flipEditModeFunc} 
+            onChangeFunc={onChangeFunc}  
+          />)
         }
         </tbody>
       </table>
@@ -52,7 +60,8 @@ EditBookList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   listOfBooks: PropTypes.array.isRequired,
   deleteFunc: PropTypes.func,
-  flipEditModeFunc: PropTypes.func
+  flipEditModeFunc: PropTypes.func,
+  onChangeFunc: PropTypes.func
 };
 
 export default EditBookList;
