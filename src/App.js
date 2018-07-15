@@ -17,7 +17,8 @@ class App extends Component {
     this.login = this.login.bind(this);
     this.logout = this.logout.bind(this);
     this.deleteBook = this.deleteBook.bind(this);
-    this.flipEditMode = this.flipEditMode.bind(this);
+    this.enableEditMode = this.enableEditMode.bind(this);
+    this.disableEditAndSave = this.disableEditAndSave.bind(this);
   }
 
   login() {
@@ -33,9 +34,20 @@ class App extends Component {
     this.setState({ books: newBook });
   }
 
-  flipEditMode() {
-    console.log("Flipping edit mode...");
-    this.setState(prevState => ({ isEditMode: !prevState.isEditMode }));
+  enableEditMode() {
+    this.setState({ isEditMode: true });
+  }
+
+  disableEditAndSave(editedBookRecord) {
+    // Can't use filter because I need to retain the order.
+    const updatedBookList = this.state.books.map(book => {
+      return book.uuid === editedBookRecord.uuid ?
+        editedBookRecord : book
+    });
+    this.setState({
+      isEditMode: false,
+      books: updatedBookList
+    });
   }
 
   cacheNewBookRecord(event) {
@@ -51,9 +63,9 @@ class App extends Component {
         <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
         {isEditMode ? 
-          <EditBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} onChangeFunc={this.cacheNewBookRecord} />
+          <EditBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} disableEditAndSaveFunc={this.disableEditAndSave} onChangeFunc={this.cacheNewBookRecord} />
           :
-          <ViewBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} />
+          <ViewBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} enableEditModeFunc={this.enableEditMode} />
         }
       </div>
     );

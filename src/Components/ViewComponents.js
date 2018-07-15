@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const ViewBookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
+const ViewBookItem = ({ isLoggedIn, deleteFunc, enableEditModeFunc, bookInfo }) => {
   const { title, author, genre, price, isbn, uuid } = bookInfo;
   return (
     <tr className="repeated-item">
@@ -10,7 +10,7 @@ const ViewBookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) =>
       <td>{genre}</td>
       <td>{price}</td>
       <td>{isbn}</td>
-      {isLoggedIn && <td><button className="yellow ui button" onClick={flipEditModeFunc}>Update</button></td>}
+      {isLoggedIn && <td><button className="yellow ui button" onClick={enableEditModeFunc}>Update</button></td>}
       {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}
     </tr>
   );
@@ -19,11 +19,11 @@ const ViewBookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) =>
 ViewBookItem.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   bookInfo: PropTypes.object.isRequired,
-  deleteFunc: PropTypes.func,
-  flipEditModeFunc: PropTypes.func
+  deleteFunc: PropTypes.func.isRequired,
+  enableEditModeFunc: PropTypes.func.isRequired
 };
 
-const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc }) => {
+const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, enableEditModeFunc }) => {
   return (
     <div className="ui container">
       <h2 className="ui header left aligned"> All Books</h2>
@@ -40,7 +40,7 @@ const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc })
           </tr>
         </thead>
         <tbody>{listOfBooks.map(book => 
-          <ViewBookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} flipEditModeFunc={flipEditModeFunc} />)
+          <ViewBookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} enableEditModeFunc={enableEditModeFunc} />)
         }
         </tbody>
       </table>
@@ -51,8 +51,8 @@ const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc })
 ViewBookList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   listOfBooks: PropTypes.array.isRequired,
-  deleteFunc: PropTypes.func,
-  flipEditModeFunc: PropTypes.func
+  deleteFunc: PropTypes.func.isRequired,
+  enableEditModeFunc: PropTypes.func.isRequired
 };
 
 export default ViewBookList;
