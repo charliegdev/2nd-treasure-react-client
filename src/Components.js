@@ -31,10 +31,7 @@ const BookItem = props => {
       <td>{price}</td>
       <td>{isbn}</td>
       {isLoggedIn && 
-        <td>
-          <button className="yellow ui button">Update</button>
-          <button className="green ui button">Finish</button>
-        </td>
+        <td><button className="yellow ui button">Update</button></td>
       }
       {isLoggedIn && <td><button className="negative ui button">Delete</button></td>}
     </tr>
@@ -46,7 +43,7 @@ BookItem.propTypes = {
   bookInfo: PropTypes.object.isRequired
 };
 
-const BookList = ({ isLoggedIn, data }) => {
+const BookList = ({ isLoggedIn, listOfBooks }) => {
   return (
     <div className="ui container">
       <h2 className="ui header left aligned"> All Books</h2>
@@ -62,7 +59,7 @@ const BookList = ({ isLoggedIn, data }) => {
             {isLoggedIn && <th className="one wide">Delete</th>}
           </tr>
         </thead>
-        <tbody>{data.map(book => <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} />)}</tbody>
+        <tbody>{listOfBooks.map(book => <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} />)}</tbody>
       </table>
     </div>
   );
@@ -70,7 +67,7 @@ const BookList = ({ isLoggedIn, data }) => {
 
 BookList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
-  data: PropTypes.object.isRequired
+  listOfBooks: PropTypes.array.isRequired
 };
 
 export { Menu, BookList };

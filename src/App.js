@@ -24,7 +24,7 @@ class App extends Component {
         <br />
         <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
-        <BookList isLoggedIn={isLoggedIn} data={books} />
+        <BookList isLoggedIn={isLoggedIn} listOfBooks={books} />
       </div>
     );
   }
