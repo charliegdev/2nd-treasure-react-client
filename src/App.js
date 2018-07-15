@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Menu, BookList } from "./Components";
+import Menu from "./Components/Menu";
+import ViewBookList from "./Components/ViewComponents";
 import books from "./SimulatedData";
 class App extends Component {
   constructor(props) {
@@ -7,11 +8,13 @@ class App extends Component {
 
     this.state = {
       isLoggedIn: false,
+      isEditMode: false,
       books
     };
 
     this.logInOrOut = this.logInOrOut.bind(this);
     this.deleteBook = this.deleteBook.bind(this);
+    this.flipEditMode = this.flipEditMode.bind(this);
   }
 
   logInOrOut() {
@@ -23,6 +26,11 @@ class App extends Component {
     this.setState({ books: newBook });
   }
 
+  flipEditMode() {
+    console.log("Flipping edit mode...");
+    this.setState(prevState => ({ isEditMode: !prevState.isEditMode }));
+  }
+
   render() {
     const { isLoggedIn, books } = this.state;
     return (
@@ -31,7 +39,7 @@ class App extends Component {
         <br />
         <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
-        <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} />
+        <ViewBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} />
       </div>
     );
   }

@@ -1,26 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 
-const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
-  return (
-    <div className="ui inverted segment">
-      <div className="ui inverted secondary fluid menu">
-        {isLoggedIn ? 
-          <a className="active item right orange" onClick={changeLoginFunc}>Logout</a>
-          : 
-          <a className="active item right blue" onClick={changeLoginFunc}>Employee Login</a>
-        }
-      </div>
-    </div>
-  );
-};
-
-Menu.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  changeLoginFunc: PropTypes.func.isRequired
-};
-
-const BookItem = ({ isLoggedIn, deleteFunc, bookInfo }) => {
+const BookItem = ({ isLoggedIn, deleteFunc, flipEditModeFunc, bookInfo }) => {
   const { title, author, genre, price, isbn, uuid } = bookInfo;
   return (
     <tr className="repeated-item">
@@ -29,7 +10,7 @@ const BookItem = ({ isLoggedIn, deleteFunc, bookInfo }) => {
       <td>{genre}</td>
       <td>{price}</td>
       <td>{isbn}</td>
-      {isLoggedIn && <td><button className="yellow ui button">Update</button></td>}
+      {isLoggedIn && <td><button className="yellow ui button" onClick={flipEditModeFunc}>Update</button></td>}
       {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}
     </tr>
   );
@@ -38,10 +19,11 @@ const BookItem = ({ isLoggedIn, deleteFunc, bookInfo }) => {
 BookItem.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   bookInfo: PropTypes.object.isRequired,
-  deleteFunc: PropTypes.func
+  deleteFunc: PropTypes.func,
+  flipEditModeFunc: PropTypes.func
 };
 
-const BookList = ({ isLoggedIn, listOfBooks, deleteFunc }) => {
+const ViewBookList = ({ isLoggedIn, listOfBooks, deleteFunc, flipEditModeFunc }) => {
   return (
     <div className="ui container">
       <h2 className="ui header left aligned"> All Books</h2>
@@ -57,16 +39,20 @@ const BookList = ({ isLoggedIn, listOfBooks, deleteFunc }) => {
             {isLoggedIn && <th className="one wide">Delete</th>}
           </tr>
         </thead>
-        <tbody>{listOfBooks.map(book => <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc}/>)}</tbody>
+        <tbody>{listOfBooks.map(book => 
+          <BookItem bookInfo={book} key={book.uuid} isLoggedIn={isLoggedIn} deleteFunc={deleteFunc} flipEditModeFunc={flipEditModeFunc} />)
+        }
+        </tbody>
       </table>
     </div>
   );
 };
 
-BookList.propTypes = {
+ViewBookList.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,
   listOfBooks: PropTypes.array.isRequired,
-  deleteFunc: PropTypes.func
+  deleteFunc: PropTypes.func,
+  flipEditModeFunc: PropTypes.func
 };
 
-export { Menu, BookList };
+export default ViewBookList;
