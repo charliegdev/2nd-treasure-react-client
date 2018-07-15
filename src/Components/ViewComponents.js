@@ -8,7 +8,7 @@ const ViewBookItem = ({ isLoggedIn, deleteFunc, enableEditModeFunc, bookInfo }) 
       <td>{title}</td>
       <td className="single line">{author}</td>
       <td>{genre}</td>
-      <td>{price}</td>
+      <td>${price}</td>
       <td>{isbn}</td>
       {isLoggedIn && <td><button className="yellow ui button" onClick={enableEditModeFunc}>Update</button></td>}
       {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}

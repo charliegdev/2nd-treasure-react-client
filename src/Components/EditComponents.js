@@ -11,18 +11,20 @@ class EditBookItem extends Component {
       bookInfo,
       editedBookInProgress: { ...bookInfo }
     };
+
+    this.onFieldChange = this.onFieldChange.bind(this);
+    this.saveEdit = this.saveEdit.bind(this);
   }
 
-  // Many form handling functions; use the new syntax so no binding is needed.
-  onTitleChange = event => {
+  onFieldChange(event, field) {
     this.setState({ editedBookInProgress: {
       ...this.state.editedBookInProgress,
-      title: event.target.value
+      [field]: event.target.value
     }});
   }
 
-  saveEdit = () => {
-    const { editedBookInProgress } = this.state;
+  saveEdit() {
+    const { editedBookInProgress} = this.state;
     this.setState({ bookInfo: { ...editedBookInProgress } }, 
       () => { 
         this.props.disableEditAndSaveFunc(this.state.bookInfo)
@@ -36,11 +38,11 @@ class EditBookItem extends Component {
     const { title, author, genre, price, isbn, uuid } = editedBookInProgress;
     return (
       <tr className="repeated-item">
-        <td><div className="ui input mini"><input type="text" value={title} onChange={this.onTitleChange} /></div></td>
-        <td className="single line">{author}</td>
-        <td>{genre}</td>
-        <td>{price}</td>
-        <td>{isbn}</td>
+        <td><div className="ui input mini"><input type="text" value={title} onChange={event => this.onFieldChange(event, "title")} /></div></td>
+        <td className="single line"><div className="ui input mini"><input type="text" value={author} onChange={event => this.onFieldChange(event, "author")} /></div></td>
+        <td><div className="ui input mini"><input type="text" value={genre} onChange={event => this.onFieldChange(event, "genre")} /></div></td>
+        <td><div className="ui input mini"><input type="text" value={price} onChange={event => this.onFieldChange(event, "price")} /></div></td>
+        <td><div className="ui input mini"><input type="text" value={isbn} onChange={event => this.onFieldChange(event, "isbn")} /></div></td>
         {isLoggedIn && <td><button className="yellow ui button" onClick={this.saveEdit}>Update</button></td>}
         {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}
       </tr>
