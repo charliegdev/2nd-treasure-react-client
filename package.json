@@ -17,7 +17,7 @@
   "devDependencies": {
     "esformatter": "^0.10.0",
     "esformatter-jsx": "^8.0.1",
-    "prettier": "^1.13.7",
-    "prettydiff": "^99.0.1"
+    "eslint": "^5.1.0",
+    "eslint-plugin-react": "^7.10.0"
   }
 }

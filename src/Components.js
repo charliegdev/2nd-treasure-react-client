@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from 'prop-types';
 
 const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
   return (
@@ -6,12 +7,17 @@ const Menu = ({ isLoggedIn = true, changeLoginFunc }) => {
       <div className="ui inverted secondary fluid menu">
         {isLoggedIn ? 
           <a className="active item right orange" onClick={changeLoginFunc}>Logout</a>
-        : 
+          : 
           <a className="active item right blue" onClick={changeLoginFunc}>Employee Login</a>
         }
       </div>
     </div>
   );
+};
+
+Menu.propTypes = {
+  isLoggedIn: PropTypes.bool,
+  changeLoginFunc: PropTypes.func.isRequired
 };
 
 const BookItem = props => {
@@ -35,6 +41,11 @@ const BookItem = props => {
   );
 };
 
+BookItem.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  bookInfo: PropTypes.object.isRequired
+};
+
 const BookList = ({ isLoggedIn, data }) => {
   return (
     <div className="ui container">
@@ -55,6 +66,11 @@ const BookList = ({ isLoggedIn, data }) => {
       </table>
     </div>
   );
+};
+
+BookList.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  data: PropTypes.object.isRequired
 };
 
 export { Menu, BookList };
