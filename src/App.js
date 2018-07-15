@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Menu from "./Components/Menu";
 import ViewBookList from "./Components/ViewComponents";
+import EditBookList from "./Components/EditComponents";
 import books from "./SimulatedData";
 class App extends Component {
   constructor(props) {
@@ -32,14 +33,18 @@ class App extends Component {
   }
 
   render() {
-    const { isLoggedIn, books } = this.state;
+    const { isLoggedIn, isEditMode, books } = this.state;
     return (
       <div>
         <Menu isLoggedIn={isLoggedIn} changeLoginFunc={this.logInOrOut} />
         <br />
         <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
         <br />
-        <ViewBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} />
+        {isEditMode ? 
+          <ViewBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} />
+          :
+          <EditBookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} flipEditModeFunc={this.flipEditMode} />
+        }
       </div>
     );
   }
