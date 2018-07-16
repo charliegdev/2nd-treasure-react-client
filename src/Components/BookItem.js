@@ -16,15 +16,10 @@ class BookItem extends Component {
     this.onFieldChange = this.onFieldChange.bind(this);
     this.saveEdit = this.saveEdit.bind(this);
     this.enableEditMode = this.enableEditMode.bind(this);
-    this.disableEditMode = this.disableEditMode.bind(this);
   }
 
   enableEditMode() {
     this.setState({ isEditMode: true });
-  }
-
-  disableEditMode() {
-    this.setState({ isEditMode: false });
   }
 
   onFieldChange(event, field) {
@@ -45,7 +40,7 @@ class BookItem extends Component {
 
   render() {
     const { isLoggedIn, deleteFunc } = this.props;
-    const { editedBookInProgress, isEditMode } = this.state;
+    const { editedBookInProgress, isEditMode, bookInfo } = this.state;
     const { title, author, genre, price, isbn, uuid } = editedBookInProgress;
     const editModeMarkup = (
       <tr className="repeated-item">
@@ -61,11 +56,11 @@ class BookItem extends Component {
 
     const viewModeMarkup = (
       <tr className="repeated-item">
-        <td>{title}</td>
-        <td className="single line">{author}</td>
-        <td>{genre}</td>
-        <td>${price}</td>
-        <td>{isbn}</td>
+        <td>{bookInfo.title}</td>
+        <td className="single line">{bookInfo.author}</td>
+        <td>{bookInfo.genre}</td>
+        <td>${bookInfo.price}</td>
+        <td>{bookInfo.isbn}</td>
         {isLoggedIn && <td><button className="yellow ui button" onClick={this.enableEditMode}>Update</button></td>}
         {isLoggedIn && <td><button className="negative ui button" onClick={deleteFunc.bind(undefined, uuid)}>Delete</button></td>}
       </tr>
