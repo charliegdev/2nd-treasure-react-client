@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import uuidv4 from "uuid/v4";
 import Menu from "./Components/Menu";
 import BookList from "./Components/BookList";
 import NewBook from "./Components/NewBook";
 import books from "./SimulatedData";
+
 class App extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +18,7 @@ class App extends Component {
     this.logout = this.logout.bind(this);
     this.deleteBook = this.deleteBook.bind(this);
     this.saveEditedBook = this.saveEditedBook.bind(this);
+    this.addNewBook = this.addNewBook.bind(this);
   }
 
   login() {
@@ -40,6 +43,13 @@ class App extends Component {
     this.setState({ books: updatedBookList });
   }
 
+  addNewBook(newBookRecord) {
+    // Normally we generate UUID on the server side. Since this application has no server side, have to
+    // do it on the client side.
+    const newBooks = [...this.state.books, { ...newBookRecord, uuid: uuidv4() }];
+    this.setState({ books: newBooks });
+  }
+
   render() {
     const { isLoggedIn, books } = this.state;
     return (
@@ -50,7 +60,7 @@ class App extends Component {
           <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
           <br />
           <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} saveFunc={this.saveEditedBook} />
-          <NewBook isLoggedIn={isLoggedIn} >Add a New Book</NewBook>
+          <NewBook isLoggedIn={isLoggedIn} addNewBookFunc={this.addNewBook}>Add a New Book</NewBook>
         </div>
       </div>
     );
