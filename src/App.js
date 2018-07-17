@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Menu from "./Components/Menu";
 import BookList from "./Components/BookList";
+import NewBook from "./Components/NewBook";
 import books from "./SimulatedData";
 class App extends Component {
   constructor(props) {
@@ -20,7 +21,7 @@ class App extends Component {
   login() {
     this.setState({ isLoggedIn: true });
   }
-  
+
   logout() {
     this.setState({ isLoggedIn: false });
   }
@@ -44,10 +45,13 @@ class App extends Component {
     return (
       <div>
         <Menu isLoggedIn={isLoggedIn} loginFunc={this.login} logoutFunc={this.logout} />
-        <br />
-        <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
-        <br />
-        <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} saveFunc={this.saveEditedBook} />
+        <div className="ui container">
+          <br />
+          <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
+          <br />
+          <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} saveFunc={this.saveEditedBook} />
+          <NewBook>Add a New Book</NewBook>
+        </div>
       </div>
     );
   }

@@ -4,7 +4,7 @@ import BookItem from './BookItem';
 
 const BookList = ({ isLoggedIn, listOfBooks, deleteFunc, saveFunc }) => {
   return (
-    <div className="ui container">
+    <div>
       <h2 className="ui header left aligned"> All Books</h2>
       <table className="ui celled padded table violet">
         <thead>
