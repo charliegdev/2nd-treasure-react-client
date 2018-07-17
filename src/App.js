@@ -50,7 +50,7 @@ class App extends Component {
           <h1 className="ui header center aligned">Second Treasures Bookstore in React</h1>
           <br />
           <BookList isLoggedIn={isLoggedIn} listOfBooks={books} deleteFunc={this.deleteBook} saveFunc={this.saveEditedBook} />
-          <NewBook>Add a New Book</NewBook>
+          <NewBook isLoggedIn={isLoggedIn} >Add a New Book</NewBook>
         </div>
       </div>
     );

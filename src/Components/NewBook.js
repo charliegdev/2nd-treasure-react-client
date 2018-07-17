@@ -10,10 +10,12 @@ export default class NewBook extends Component {
   }
 
   render() {
+    const { children, isLoggedIn } = this.props;
+    if (!isLoggedIn) return null;
     return (
-      <div className="ui form raised segment" ng-if="loginController.isLoggedIn">
+      <div className="ui form raised segment">
         <h2 className="ui header">
-          {this.props.children}
+          {children}
           <div className="sub header">All fields are required</div>
         </h2>
 
@@ -49,5 +51,6 @@ export default class NewBook extends Component {
 }
 
 NewBook.propTypes = {
-  children: PropTypes.string.isRequired
+  children: PropTypes.string.isRequired,
+  isLoggedIn: PropTypes.bool.isRequired
 };
