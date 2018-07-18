@@ -27,7 +27,13 @@ export default class NewBook extends Component {
 
   saveNewBook(event) {
     event.preventDefault();
-    this.setState({ savedBook: { ...this.state.newBookInProgress } }, () => {
+
+    const { newBookInProgress } = this.state;
+
+    // If the user has left any field unfilled, don't proceed.
+    if (Object.values(newBookInProgress).includes("")) return;
+
+    this.setState({ savedBook: { ...newBookInProgress } }, () => {
       this.props.addNewBookFunc(this.state.savedBook);
       this.setState({ newBookInProgress: { ...this.emptyBook } })
     });
